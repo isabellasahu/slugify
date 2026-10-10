@@ -32,3 +32,10 @@ stray dash. Leading and trailing separators are stripped. The separator
 must be a single ASCII character; a multi-character or non-ASCII
 separator raises `ValueError` because the normalisation pipeline would
 otherwise mangle it silently.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
